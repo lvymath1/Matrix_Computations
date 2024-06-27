@@ -21,9 +21,11 @@ for i in range(n):
 ```
 
 P 1.1.4
-$D = (AB)C$ flop 为 $2mnp +2mpq$
-$D = A(BC)$ flop 为 $2npq + 2mnq$
+当 $D = (AB)C$ flop 为 $2mnp +2mpq$
+
+当 $D = A(BC)$ flop 为 $2npq + 2mnq$
 
 P 1.1.5
-$W_1 = (C+D)(E+F)$, $W_2 = (C-D)(E+F)$, $W_3 = 2CF$
-$A = (W_1 + W_2) / 2$, $B = (W_1 - W_2) / 2 + 2CF$
+令 $W_1 = (C+D)(E+F)$, $W_2 = (C-D)(E+F)$, $W_3 = 2CF$
+
+有 $A = (W_1 + W_2) / 2$, $B = (W_1 - W_2) / 2 + 2CF$
