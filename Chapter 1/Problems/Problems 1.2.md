@@ -1,4 +1,4 @@
-Answer
+# Answer
 
 ### P 1.2.1
 
@@ -187,3 +187,79 @@ print(f"Updated y vector: {y}")
 
 ```
 
+### P 1.2.9
+
+对称矩阵那么仅需要保留对角线之上的矩阵就可以。
+
+```python
+import numpy as np
+
+
+def symmetric_band_matrix_gaxpy(A_band, x, y):
+    """
+    Performs the operation y = y + Ax
+    for banded matrix A_band and vectors x, y.
+    """
+    p, n = A_band.shape
+    band_width = p - 1
+    for i in range(n):
+        left = max(0, i - band_width)
+        right = min(n - 1, i + band_width)
+        for j in range(left, i+1):
+            y[i] += A_band[band_width - (i - j)][i] * x[j]
+        for j in range(i+1, right+1):
+            y[i] += A_band[band_width - (j - i)][j] * x[j]
+
+
+# Example usage:
+n = 4
+
+# Define a banded matrix A_band
+# A_band is a 2D array where rows represent the diagonals of the banded matrix
+A_band = np.array([[0, 1, 3, 5],
+                   [1, 2, 4, 6]])
+
+# Define vector x
+x = np.array([1, 2, 3, 4], dtype=float)
+
+# Define vector y (initially zero)
+y = np.zeros(n, dtype=float)
+
+print("Original y vector:", y)
+
+symmetric_band_matrix_gaxpy(A_band, x, y)
+
+print("Updated y vector:", y)
+```
+
+### P 1.2.10
+$(A + uv^T)^k = [A^(k-1), ... , Au, u] \begin{bmatrix} v^T \\... \\ v^T(A + uv^T)^(k-2) \\ v^T(A + uv^T)^(k-1)\end{bmatrix}$.
+
+所以这里 $X = [A^{k-1}u, ... , Au, u]$, $Y = [v^T, ..., v^T(A + uv^T)^{k-2}, v^T(A + uv^T)^{k-1}]$.
+
+算 $u, Au, ...., A^{k-1}u$ 一共需要 $r \cdot n^2$ 次flop.
+
+算 $v^T, ..., v^T(A + uv^T)^{k-2}, v^T(A + uv^T)^{k-1}$ 一共需要 $2 n^2$ 次flop 计算 (A + uv^T), 又需要 $r \cdot n^2$ 次flop.
+
+所以总共有 $(2r + 2) \cdot n^2$ 次flop.
+
+### P 1.2.10
+
+$D_n$ 左乘的含义是把向量往下推一次, 那么 $D_n^k$ 就是把向量往下推k个. 那么推完之后 $n-k, n-1$ 位置在前面, $0, n - k - 1$ 位置在之后
+
+```python
+import numpy as np
+
+
+def upshif_k_times(x, k):
+    """
+    Performs the operation y = y + Ax
+    for banded matrix A_band and vectors x, y.
+    """
+    n = x.shape[0]
+    y = np.zeros([n, 1])
+    for i in range(n):
+        y[(i + k) % n] = x[i]
+    return y
+
+```
