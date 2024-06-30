@@ -91,7 +91,7 @@ print("Imaginary part of result:", im_z)
 ### P 1.2.6
 
 对称矩阵 $A[i][j]$ 当 $j < i$ 时对应 $A_vec[j * n - (j * (j + 1)) // 2 + i]$, 把这一关系带入到 $B = X^TAX$ 中, 
-可以发现 $b_{ij} = \sum_{k = 1}^{n}\sum_{l=1}^{n} x_{il}a_{im}x_{mj}$.
+可以发现 $b_{ij} = \sum_{k = 0}^{n-1}\sum_{l=0}^{n-1} x_{il}a_{im}x_{mj}$.
 
 ```python
 import numpy as np
@@ -242,13 +242,13 @@ v^T(A + uv^T)^{k-2} \\
 v^T(A + uv^T)^{k-1} 
 \end{bmatrix}$$
 
-所以这里 \(X = [A^{k-1}u, ..., Au, u]\)，\(Y = [v^T, ..., v^T(A + uv^T)^{k-2}, v^T(A + uv^T)^{k-1}]\)。
+所以这里 $X = [A^{k-1}u, ..., Au, u], Y = [v^T, ..., v^T(A + uv^T)^{k-2}, v^T(A + uv^T)^{k-1}]$。
 
-计算 \(u, Au, ...., A^{k-1}u\) 一共需要 \(r \cdot n^2\) 次浮点运算（flops）。
+计算 $u, Au, ...., A^{k-1}u$ 一共需要 $r \cdot n^2$ 次浮点运算（flops）。
 
-计算 \(v^T, ..., v^T(A + uv^T)^{k-2}, v^T(A + uv^T)^{k-1}\) 一共需要 \(2 n^2\) 次浮点运算计算 \((A + uv^T)\)，又需要 \(r \cdot n^2\) 次浮点运算。
+计算 $v^T, ..., v^T(A + uv^T)^{k-2}, v^T(A + uv^T)^{k-1}$ 一共需要 $2 n^2$ 次浮点运算计算 $(A + uv^T)$，又需要 $r \cdot n^2$ 次浮点运算。
 
-所以总共有 \((2r + 2) \cdot n^2\) 次浮点运算。
+所以总共有 $(2r + 2) \cdot n^2$ 次浮点运算。
 
 ### P 1.2.10
 
