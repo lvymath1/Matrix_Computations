@@ -12,7 +12,7 @@
 
 ### P 1.2.3
 
-用矩阵ijk矩阵乘法进行计算，因为A的第i行$[i, n-1]$和B的第j列$[0,j]$是非零的，那么仅需要计算$[i,j]$之间上的数即可。
+用矩阵ijk矩阵乘法进行计算，因为A的第i行 $[i, n-1]$ 和B的第j列 $[0,j]$ 是非零的，那么仅需要计算 $[i,j]$ 之间上的数即可。
 ```python
 def matrix_multiplication(A, B, C):
     n, _ = A.shape
@@ -52,7 +52,7 @@ $Re(z) = Re(A)Re(z) - Im(A)Im(x)$
 
 $Im(z) = Re(A)Im(z) + Im(A)Re(x)$
 
-因为根据Hermitian矩阵做了特定数据结构，所以代码中需要认真讨论$Re(A)$ 和 $Im(A)$, 在 $A.herm$ 中所对应的位置。
+因为根据Hermitian矩阵做了特定数据结构，所以代码中需要认真讨论 $Re(A)$ 和 $Im(A)$, 在 $A.herm$ 中所对应的位置。
 
 ```python
 import numpy as np
@@ -90,8 +90,8 @@ print("Imaginary part of result:", im_z)
 
 ### P 1.2.6
 
-对称矩阵 $A[i][j]$ 当 $j < i$ 时对应 $A_vec[j * n - (j * (j + 1)) // 2 + i]$, 把这一关系带入到 $B = X^TAX$ 中, 
-可以发现 $b_{ij} = \sum_{k = 0}^{n-1}\sum_{l=0}^{n-1} x_{il}a_{im}x_{mj}$.
+对称矩阵 $A[i][j]$ 当 $j < i$ 时对应 $A_{vec}[j * n - (j * (j + 1)) // 2 + i]$, 把这一关系带入到 $B = X^TAX$ 中, 
+可以发现 $b_{ij} = \sum_{k = 0}^{n-1} \sum_{l=0}^{n-1} x_{il}a_{im}x_{mj}$.
 
 ```python
 import numpy as np
