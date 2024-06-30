@@ -88,6 +88,31 @@ print("Real part of result:", re_z)
 print("Imaginary part of result:", im_z)
 ```
 
+### P 1.2.6
+
+对称矩阵 $A[i][j]$ 当 $j < i$ 时对应 $A_vec[j * n - (j * (j + 1)) // 2 + i]$, 把这一关系带入到 $B = X^TAX$ 中, 
+可以发现 $b_{ij} = \sum_{k = 1}^{n}\sum_{l=1}^{n} x_{il}a_{im}x_{mj}$.
+
+```python
+import numpy as np
+
+
+def vector_matrix_multiplication(A_vec, X):
+    """
+    Performs the operation y = y + A * x
+    for a vectorized representation of a matrix A and vectors x, y.
+    """
+    n, p = X.shape
+    B_vec = np.zeros(p * (p + 1) // 2)
+
+    for i in range(p):
+        for k in range(n):
+            for l in range(n):
+                for j in range(i, p):
+                    B_vec[j * n - (j * (j + 1)) // 2 + i] += X[i][l] * A_vec[k * n - (k * (k + 1)) // 2 + i] * X[k][j]
+    return B_vec
+```
+
 ### P 1.2.7
 
 把算法 1.1.3 的gaxpy中的 $A[i][j]$ 改成 $a[abs(i-j)]$ 即可。
@@ -124,3 +149,41 @@ matrix_vector_gaxpy(A_vec, x, y)
 print(f"Updated y vector: {y}")
 
 ```
+
+### P 1.2.8
+
+把上一问的gaxpy中的 $abs(j - i)$ 改成 $(i + j) % n$ 即可，几乎同理。
+
+```python
+import numpy as np
+
+
+def matrix_vector_gaxpy(A_vec, x, y):
+    """
+    Performs the operation y = y + A * x
+    for a vectorized representation of a matrix A and vectors x and y.
+    """
+    n = A_vec.shape[0]
+    for i in range(n):
+        for j in range(n):
+            y[i] += A_vec[(i + j) % n] * x[j]
+
+
+# Example usage:
+n = 3
+
+# Define the vectorized representation of the matrix A
+A_vec = np.array([1, 2, 3, 4], dtype=float)
+
+# Define vectors x and y
+x = np.array([1, 2, 3, 4], dtype=float)
+y = np.array([4, 5, 6, 7], dtype=float)
+
+# Perform the operation
+matrix_vector_gaxpy(A_vec, x, y)
+
+# Output the result
+print(f"Updated y vector: {y}")
+
+```
+
