@@ -233,15 +233,22 @@ print("Updated y vector:", y)
 ```
 
 ### P 1.2.10
-$(A + uv^T)^k = [A^(k-1), ... , Au, u] \begin{bmatrix} v^T \\... \\ v^T(A + uv^T)^(k-2) \\ v^T(A + uv^T)^(k-1)\end{bmatrix}$.
 
-所以这里 $X = [A^{k-1}u, ... , Au, u]$, $Y = [v^T, ..., v^T(A + uv^T)^{k-2}, v^T(A + uv^T)^{k-1}]$.
+$$(A + uv^T)^k = [A^{k-1}u, ..., Au, u] 
+\begin{bmatrix} 
+v^T \\ 
+... \\ 
+v^T(A + uv^T)^{k-2} \\ 
+v^T(A + uv^T)^{k-1} 
+\end{bmatrix}$$
 
-算 $u, Au, ...., A^{k-1}u$ 一共需要 $r \cdot n^2$ 次flop.
+所以这里 \(X = [A^{k-1}u, ..., Au, u]\)，\(Y = [v^T, ..., v^T(A + uv^T)^{k-2}, v^T(A + uv^T)^{k-1}]\)。
 
-算 $v^T, ..., v^T(A + uv^T)^{k-2}, v^T(A + uv^T)^{k-1}$ 一共需要 $2 n^2$ 次flop 计算 (A + uv^T), 又需要 $r \cdot n^2$ 次flop.
+计算 \(u, Au, ...., A^{k-1}u\) 一共需要 \(r \cdot n^2\) 次浮点运算（flops）。
 
-所以总共有 $(2r + 2) \cdot n^2$ 次flop.
+计算 \(v^T, ..., v^T(A + uv^T)^{k-2}, v^T(A + uv^T)^{k-1}\) 一共需要 \(2 n^2\) 次浮点运算计算 \((A + uv^T)\)，又需要 \(r \cdot n^2\) 次浮点运算。
+
+所以总共有 \((2r + 2) \cdot n^2\) 次浮点运算。
 
 ### P 1.2.10
 
