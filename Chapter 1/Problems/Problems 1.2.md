@@ -90,7 +90,7 @@ print("Imaginary part of result:", im_z)
 
 ### P 1.2.6
 
-对称矩阵 $A[i][j]$ 当 $j < i$ 时对应 $A_{vec}[j * n - (j * (j + 1)) // 2 + i]$, 把这一关系带入到 $B = X^TAX$ 中, 
+对称矩阵 $A[i][j]$ 当 $j < i$ 时对应 $A_{vec}[j \cdot n - (j \cdot (j + 1)) // 2 + i]$, 把这一关系带入到 $B = X^TAX$ 中, 
 可以发现 $b_{ij} = \sum_{k = 0}^{n-1} \sum_{l=0}^{n-1} x_{il}a_{im}x_{mj}$.
 
 ```python
